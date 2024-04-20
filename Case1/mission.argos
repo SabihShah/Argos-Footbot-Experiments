@@ -1,0 +1,181 @@
+<?xml version="1.0" ?>
+<argos-configuration>
+
+  <!-- ************************* -->
+  <!-- * General configuration * -->
+  <!-- ************************* -->
+  <framework>
+    <experiment length="0" ticks_per_second="10" />
+    <system threads="0" />
+  </framework>
+ 
+  <!-- *************** -->
+  <!-- * Controllers * -->
+  <!-- *************** -->
+  <controllers>
+
+    <lua_controller id="lua1">
+      <actuators>
+        <differential_steering implementation="default" />
+        <leds implementation="default" medium="leds" />
+        <footbot_gripper implementation="default" />
+        <footbot_turret implementation="default" />
+        <range_and_bearing implementation="default" />
+      </actuators>
+      <sensors>
+        <differential_steering implementation="default" />
+        <footbot_motor_ground implementation="rot_z_only" />
+        <footbot_proximity implementation="default" show_rays="false" />
+        <footbot_light implementation="rot_z_only" show_rays="false" />
+        <range_and_bearing implementation="medium" medium="rab" show_rays="true" />
+        <footbot_turret_encoder implementation="default" />
+        <colored_blob_omnidirectional_camera implementation="rot_z_only" medium="leds" show_rays="false" />
+      </sensors>
+      <params script="mission.lua" />
+    </lua_controller>
+
+  </controllers>
+
+  <!-- *********************** -->
+  <!-- * Arena configuration * -->
+  <!-- *********************** -->
+  <!-- <arena size="9, 6, 1" center="0,0,0.5">
+
+
+    <floor id="f" source="image" path="./yellow.png" />
+
+    <box id="bn" size="0.1, 6, 0.2" movable="false">
+      <body position="4.5,0,0" orientation="0,0,0" />
+    </box>
+    <box id="bs" size="0.1, 6, 0.2" movable="false">
+      <body position="-4.5,0,0" orientation="0,0,0" />
+    </box>
+    <box id="be" size="9, 0.1, 0.2" movable="false">
+      <body position="0,-3,0" orientation="0,0,0" />
+    </box>
+    <box id="bw" size="9, 0.1, 0.2" movable="false">
+      <body position="0,3,0" orientation="0,0,0" />
+    </box> -->
+  <arena size="12,12, 8" center="0, 0, 0">
+
+    <!-- Floor -->
+    <floor id="floor" source="image" path="yellow.png" />
+
+    <!-- Light -->
+    <light id="l1" position="0,0,3" orientation="0,0,0" color="yellow" intensity="20" medium="leds" />
+
+    <!-- Walls -->
+    <box id="wall_north" size="0.1,12,1" movable="false">
+      <body position="6,0,0" orientation="0,0,0" />
+    </box>
+    <box id="wall_south" size="0.1,12,1" movable="false">
+      <body position="-6,0,0" orientation="0,0,0" />
+    </box>
+    <box id="wall_west" size="12,0.1,1" movable="false">
+      <body position="0,6,0" orientation="0,0,0" />
+    </box>
+    <!-- <box id="wall_east" size="12,0.1,0.35" movable="false"> -->
+    <box id="wall_east" size="12,0.1,1" movable="false">
+      <body position="0,-6,0" orientation="0,0,0" />
+    </box>
+
+
+    <distribute>
+      <position method="uniform" min="-2,-2,0" max="2,2,0" />
+      <orientation method="uniform" min="0,0,0" max="360,0,0" />
+      <entity quantity="8" max_trials="100">
+        <foot-bot id="fb1" rab_range="0.7">
+          <controller config="lua1" />
+        </foot-bot>
+      </entity>
+    </distribute>
+
+ <!-- You can play with the number of objects changing the 'quantity' attribute -->
+   
+    <!-- Objects -->
+    <!-- You can play with the number of objects changing the 'quantity' attribute -->
+     <distribute>
+      <position method="uniform" min="-6,1,0" max="-4.5,6,0" />
+      <orientation method="constant" values="0,0,0" />
+      <entity quantity="10" max_trials="100" base_num="1">
+        <cylinder id="cyl_l_b" radius="0.1" height="0.05" movable="true" mass="0.1">
+          <leds medium="leds">
+            <led offset="0,0,0.1" anchor="origin" color="red" />
+          </leds>
+        </cylinder>
+      </entity>
+    </distribute>
+
+    <distribute>
+      <position method="uniform" min="4.5,1,0" max="6,6,0" />
+      <orientation method="constant" values="0,0,0" />
+      <entity quantity="10" max_trials="100" base_num="1">
+        <cylinder id="cyl_l_t" radius="0.1" height="0.05" movable="true" mass="0.1">
+          <leds medium="leds">
+            <led offset="0,0,0.1" anchor="origin" color="red" />
+          </leds>
+        </cylinder>
+      </entity>
+    </distribute>
+
+
+   <distribute>
+      <position method="uniform" min="4.5,-6,0" max="6,-1,0" />
+      <orientation method="constant" values="0,0,0" />
+      <entity quantity="10" max_trials="100" base_num="1">
+        <cylinder id="cyl_r_b" radius="0.1" height="0.05" movable="true" mass="0.1">
+          <leds medium="leds">
+            <led offset="0,0,0.1" anchor="origin" color="red" />
+          </leds>
+        </cylinder>
+      </entity>
+    </distribute>
+ 
+
+   <distribute>
+      <position method="uniform" min="-6,-6,0" max="-4.5,-1,0" />
+      <orientation method="constant" values="0,0,0" />
+      <entity quantity="10" max_trials="100" base_num="1">
+        <cylinder id="cyl_r_t" radius="0.1" height="0.05" movable="true" mass="0.1">
+          <leds medium="leds">
+            <led offset="0,0,0.1" anchor="origin" color="red" />
+          </leds>
+        </cylinder>
+      </entity>
+    </distribute>
+  </arena>
+    
+
+
+  <!-- ******************* -->
+  <!-- * Physics engines * -->
+  <!-- ******************* -->
+  <physics_engines>
+    <dynamics2d id="dyn2d" iterations="50" />
+  </physics_engines>
+
+  <!-- ********* -->
+  <!-- * Media * -->
+  <!-- ********* -->
+  <media>
+    <range_and_bearing id="rab" />
+    <led id="leds" />
+  </media>
+
+
+  <!-- ****************** -->
+  <!-- * Visualization * -->
+  <!-- ****************** -->
+  <visualization>
+    <qt-opengl lua_editor="false">
+      <camera>
+        <placements>
+          <placement index="0" position="0,0.1,18" look_at="0,0,0" up="0,0,1" lens_focal_length="40" />
+        </placements>
+      </camera>
+    </qt-opengl>
+  </visualization>
+
+</argos-configuration>
+
+
