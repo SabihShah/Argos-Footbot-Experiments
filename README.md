@@ -4,6 +4,7 @@ Welcome to the repository dedicated to experiments using the Argos Simulator and
 
 ### Argos Simulator:
 Argos is a powerful, modular, and flexible multi-robot simulator designed for swarm robotics research. Developed by the Institute for Systems and Robotics at the Instituto Superior Técnico in Lisbon, Portugal, Argos provides a realistic environment for simulating large-scale swarm behaviors and testing various algorithms and strategies. Its modular architecture allows researchers to easily extend and customize simulation scenarios to match specific experimental needs. Argos supports a wide range of robot platforms and sensor configurations, making it a popular choice for exploring complex swarm robotics phenomena.
+For installation instructions on the Argos simulator: https://www.argos-sim.info/user_manual.php
 
 ### Footbot Robot:
 The Footbot robot is a small, versatile, and highly maneuverable robot designed specifically for swarm robotics research. Developed as part of the Swarmanoid project, the Footbot features a compact and lightweight design, making it ideal for deployment in large numbers. Equipped with various sensors and actuators, including cameras, proximity sensors, and omni-directional wheels, the Footbot is capable of navigating diverse environments and interacting with its surroundings. Its modular architecture and open-source software framework enable researchers to experiment with different control algorithms and communication protocols, paving the way for advancements in swarm robotics technology.
